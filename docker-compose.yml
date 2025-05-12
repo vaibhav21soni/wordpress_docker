@@ -1,0 +1,54 @@
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wp_user
+      MYSQL_PASSWORD: wp_pass
+      MYSQL_ROOT_PASSWORD: root_pass
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - vaibhav
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_USER: wp_user
+      PMA_PASSWORD: wp_pass
+    ports:
+      - "8080:80"
+    networks:
+      - vaibhav
+  php:
+    build: ./php
+    container_name: php_fpm
+    restart: always
+    volumes:
+      - ./wordpress:/var/www/html
+    networks:
+      - vaibhav
+  nginx:
+    image: nginx:latest
+    container_name: nginx_server
+    ports:
+      - "80:80"
+    volumes:
+      - ./wordpress:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - vaibhav
+    depends_on:
+      - php
+      - phpmyadmin
+
+volumes:
+  db_data:
+networks:
+  vaibhav:  
+    external: true
+
