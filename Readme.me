@@ -12,9 +12,7 @@ DNS API script (e.g., acme-dns-auth.py) properly configured and executable
 
 🧾 Step-by-Step Instructions
 1. Request Certificate using Certbot DNS Challenge
-bash
-Copy
-Edit
+
 sudo certbot certonly \
   --manual \
   --manual-auth-hook /etc/letsencrypt/acme-dns-auth.py \
@@ -25,9 +23,7 @@ sudo certbot certonly \
 🧠 This will ask you to add a TXT record to your DNS. The hook script should automate this if set correctly.
 
 2. Copy Generated Certificate Files
-bash
-Copy
-Edit
+
 mkdir -p ~/wordpress/certs/testings.aftl.biz
 sudo cp /etc/letsencrypt/archive/testings.aftl.biz/*.pem ~/wordpress/certs/testings.aftl.biz/
 cd ~/wordpress/certs/testings.aftl.biz
@@ -36,23 +32,17 @@ mv privkey1.pem privkey.pem
 ✅ This step prepares the certificate files for use in Docker. Adjust filenames (fullchain1.pem, privkey1.pem) if different.
 
 3. Start Docker Containers
-bash
-Copy
-Edit
+
 docker-compose up -d --build
 🔁 Rebuilds and starts the WordPress service with SSL.
 
 4. Verify with cURL
-bash
-Copy
-Edit
+
 curl https://testings.aftl.biz
 ✅ If SSL is working, you’ll see the response from the site without SSL errors.
 
 📁 Directory Structure Example
-bash
-Copy
-Edit
+
 ~/wordpress/
 │
 ├── docker-compose.yml
