@@ -1,0 +1,18 @@
+# Environment variables
+.env
+
+# SSL certificates
+certs/
+
+# WordPress files
+wordpress/wp-config.php
+wordpress/.htaccess
+wordpress/wp-content/uploads/
+wordpress/wp-content/cache/
+wordpress/wp-content/upgrade/
+
+# Database data
+db_data/
+
+# Logs
+*.log
